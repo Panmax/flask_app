@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, redirect
-from datetime import datetime
-
-app = Flask(__name__)
+from flask import render_template
+from app import app
 
 
 @app.route('/')
 def index():
-    return u'你好,星辰大海'
+    return render_template('baidu.html')
 
 if __name__ == '__main__':
     app.debug = True
