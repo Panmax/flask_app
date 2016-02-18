@@ -17,19 +17,42 @@
 	var map = new BMap.Map("allmap");
 	var point = new BMap.Point(116.331398,39.897445);
 	map.centerAndZoom(point,12);
+    var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+                    '<img src="../img/baidu.jpg" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
+                    '地址：北京市海淀区上地十街10号<br/>电话：(010)59928888<br/>简介：百度大厦位于北京市海淀区西二旗地铁站附近，为百度公司综合研发及办公总部。' +
+                  '</div>';
+
 
 	var geolocation = new BMap.Geolocation();
 	geolocation.getCurrentPosition(function(r){
 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
 			var mk = new BMap.Marker(r.point);
-			map.addOverlay(mk);
 			map.panTo(r.point);
-			alert('您的位置：'+r.point.lng+','+r.point.lat);
+{#			alert('您的位置：'+r.point.lng+','+r.point.lat);#}
+            //创建检索信息窗口对象
+            var searchInfoWindow = null;
+            searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+                    title  : "百度大厦",      //标题
+                    width  : 290,             //宽度
+                    height : 105,              //高度
+                    panel  : "panel",         //检索结果面板
+                    enableAutoPan : true,     //自动平移
+                    searchTypes   :[
+                        BMAPLIB_TAB_SEARCH,   //周边检索
+                        BMAPLIB_TAB_TO_HERE,  //到这里去
+                        BMAPLIB_TAB_FROM_HERE //从这里出发
+                    ]
+                });
+            var marker = new BMap.Marker(r.point); //创建marker对象
+            marker.addEventListener("click", function(e){
+                searchInfoWindow.open(marker);
+            })
+            map.addOverlay(marker); //在地图中添加marker
 		}
 		else {
 			alert('failed'+this.getStatus());
 		}
-	},{enableHighAccuracy: true})
+	},{enableHighAccuracy: true});
 	//关于状态码
 	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
 	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
