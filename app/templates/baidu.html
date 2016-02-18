@@ -19,9 +19,7 @@
 	var map = new BMap.Map("allmap");
 	var point = new BMap.Point(116.331398,39.897445);
 	map.centerAndZoom(point,20);
-    var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
-                    '地址：邯郸移动邯郸移动邯郸移动邯郸移动邯郸移动<br/>电话：<a href="tel:10086">10086</a><br/>简介：邯郸移动邯郸移动邯郸移动邯郸移动' +
-                  '</div>';
+    var content = '这是邯郸移动!!'
 
 
 	var geolocation = new BMap.Geolocation();
@@ -34,14 +32,14 @@
             var searchInfoWindow = null;
             searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
                     title  : "邯郸移动",      //标题
-                    width  : 290,             //宽度
-                    height : 105,              //高度
+                    width  : 100,             //宽度
+                    height : 20,              //高度
                     panel  : "panel",         //检索结果面板
                     enableAutoPan : true,     //自动平移
                     searchTypes   :[
-                        BMAPLIB_TAB_SEARCH,   //周边检索
-                        BMAPLIB_TAB_TO_HERE,  //到这里去
-                        BMAPLIB_TAB_FROM_HERE //从这里出发
+{#                        BMAPLIB_TAB_SEARCH,   //周边检索#}
+{#                        BMAPLIB_TAB_TO_HERE,  //到这里去#}
+{#                        BMAPLIB_TAB_FROM_HERE //从这里出发#}
                     ]
                 });
             var marker = new BMap.Marker(r.point); //创建marker对象
